@@ -1,5 +1,7 @@
 import pygame, random
 import pygame.freetype
+import time
+
 
 #constants
 SCREEN_WIDTH = 500
@@ -9,6 +11,11 @@ WHITE = (255, 255, 255)
 RED = (136, 8, 8)
 VEL = 2
 OPPONENT_SPEED = 1
+
+def get_random_start():
+    random.seed(int(time.time()))
+    opponents_loc = {0: [random.randint(0, 500), random.randint(0, 500)]}
+    return opponents_loc
 
 
 pwidth = 15
@@ -29,7 +36,7 @@ run = True
 playerX, playerY = SCREEN_WIDTH/2, SCREEN_HEIGHT/2
 
 #creating ghosts
-opponents_loc = {0: [random.randint(0, 150), random.randint(0, 150)]}
+opponents_loc = get_random_start()
 
 scoreball_x, scoreball_y = random.randint(0,500), random.randint(0,500)
 score, score_board, level = 0,0 ,1
@@ -81,6 +88,7 @@ while run:
 
     #OPPONENT
     pygame.draw.circle(screen, WHITE, (opponents_loc[0]), radius=gradius, width=gwidth)
+    
     currdisx = opponents_loc[0][0]-player[0]
     currdisy = opponents_loc[0][1] -player[1]
     if currdisx > 0:
